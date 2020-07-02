@@ -3,7 +3,7 @@
 ## Usage
 ```hcl
 module "example-server-linux" {
-  source = ""
+  source = ""ptfe.this-demo.rocks/akentosh/virtualmachine/vsphere"
   version = "1.0.0"
 }
 ```

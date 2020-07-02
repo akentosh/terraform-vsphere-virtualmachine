@@ -3,26 +3,26 @@ provider "vsphere" {
 }
 
 data "vsphere_datacenter" "dc" {
-  name = var.dc
+  name = "PacketDatacenter"
 }
 
 data "vsphere_datastore" "datastore" {
-  name          = var.datastore_name
+  name          = "datastore1"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
 data "vsphere_compute_cluster" "cluster" {
-  name          = var.cluster_name
+  name          = "MainCluster"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
 data "vsphere_network" "network" {
-  name          = var.network_name
+  name          = "VM Network"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
 data "vsphere_virtual_machine" "template" {
-  name          = var.template
+  name          = "UbuntuTemplate"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
@@ -60,12 +60,12 @@ resource "vsphere_virtual_machine" "vm" {
 
       network_interface {
         ipv4_address = var.ipv4_addr
-        ipv4_netmask = var.ipv4_mask
+        ipv4_netmask = "24"
       }
 
-      ipv4_gateway = var.ipv4_gw
+      ipv4_gateway = "10.100.0.1"
     }
   }
 
-  tags = [ vsphere_tag.tag.id ]
+  tags = [vsphere_tag.tag.id]
 }
